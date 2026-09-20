@@ -1,0 +1,25 @@
+{
+  "id": "hardhat-original-v1",
+  "name": "Hardhat",
+  "authors": [
+    "Liangbin Xie"
+  ],
+  "version": "1.0",
+  "source_url": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7CBGOS",
+  "doi": "10.7910/DVN/7CBGOS",
+  "license": "CC0-1.0",
+  "license_evidence": [
+    "metadata/hardhat-datacite.json",
+    "Harvard original landing page License/Data Use Agreement CC0 1.0 viewed through browser on 2026-09-15"
+  ],
+  "download_evidence": {
+    "bytes": 268420501,
+    "sha256": "bb33a807de3c1523cc6095189a5c3355c803a54f09acf901fa3eca61dbd78241",
+    "md5": "740824992600bb8983c7cc08516742ef",
+    "status": "downloaded and extracted",
+    "published_md5_matches": true
+  },
+  "recorded_source_check": "Existing 2026-09-15 provenance record reused; original raw photos are not republished by this validation.",
+  "provenance_record_sha256": "2348f358fa7c59ed68dc44ff65b660efb419eaa4e4867fb2f0e662a962fcba6c",
+  "current_material": "Derived same-source subset with inherited source/AI-reviewed labels; current per-file and per-pixel identity checked."
+}

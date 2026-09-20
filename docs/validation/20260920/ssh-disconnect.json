@@ -1,0 +1,28 @@
+{
+  "job_id": "ssh-disconnect-output-recheck-20260920",
+  "pid": 2754998,
+  "launch_count": 1,
+  "mechanism": "Task-local subprocess.Popen(start_new_session=True) with stdin/out/err detached; actual controlling SSH exited, new connect.sh session read the saved original job.",
+  "remote_launched_at_utc": "2026-09-20T04:59:59.866783+00:00",
+  "remote_compute_started_at_utc": "2026-09-20T05:00:29.921191+00:00",
+  "remote_completed_at_utc": "2026-09-20T05:00:31.025947+00:00",
+  "remote_reconnect_read_at_utc": "2026-09-20T05:00:36.387825+00:00",
+  "controlling_ssh_exit_observed": true,
+  "scheduling_delay_seconds": 30,
+  "scheduling_delay_not_training_time": true,
+  "clock_note": "Remote and local system clocks differ by approximately7m40s; elapsed compute times use the remote clock only.",
+  "exit_code": 0,
+  "model_sha256": "23df0fafd2276226ee1f74e67f7330ca1abdfda9dc2ac3f47cf96437a53ec862",
+  "reference_sha256": "bff55589d41fd8b9574096ad609e6c5b163a31d94292e019741473fed0737b44",
+  "result_sha256": "5cd0282d6870f36be0cbf4c502604fc4a16d57935c8e3015f4736756188e0932",
+  "images": 4,
+  "detections": [
+    9,
+    5,
+    6,
+    5
+  ],
+  "passed": true,
+  "scope": "Real SSH disconnect/reconnect and saved-job/result continuation for one ONNX output check. This does not mean AI reasoning continues after its host session closes.",
+  "model_or_data_modified": false
+}

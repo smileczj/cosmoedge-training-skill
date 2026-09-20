@@ -1,0 +1,4 @@
+interface:
+  display_name: "CosmoEdge 辅助训练"
+  short_description: "帮助 AI 检查条件、制定方案并完成可验证的模型训练与应用接入"
+  default_prompt: "使用 $cosmoedge-training，检查我的数据和环境，提出适合当前需求的方案并完成训练与验证。"

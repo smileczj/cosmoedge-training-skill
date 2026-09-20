@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-20",
+  "purpose": "Real execution validation of adaptive AI training Skill; not model-replacement or production acceptance.",
+  "source": {
+    "id": "hardhat-original-v1",
+    "name": "Hardhat",
+    "authors": [
+      "Liangbin Xie"
+    ],
+    "version": "1.0",
+    "source_url": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7CBGOS",
+    "doi": "10.7910/DVN/7CBGOS",
+    "license": "CC0-1.0",
+    "license_evidence": [
+      "metadata/hardhat-datacite.json",
+      "Harvard original landing page License/Data Use Agreement CC0 1.0 viewed through browser on 2026-09-15"
+    ],
+    "download_evidence": {
+      "bytes": 268420501,
+      "sha256": "bb33a807de3c1523cc6095189a5c3355c803a54f09acf901fa3eca61dbd78241",
+      "md5": "740824992600bb8983c7cc08516742ef",
+      "status": "downloaded and extracted",
+      "published_md5_matches": true
+    },
+    "recorded_source_check": "Existing 2026-09-15 provenance record reused; original raw photos are not republished by this validation.",
+    "provenance_record_sha256": "2348f358fa7c59ed68dc44ff65b660efb419eaa4e4867fb2f0e662a962fcba6c",
+    "current_material": "Derived same-source subset with inherited source/AI-reviewed labels; current per-file and per-pixel identity checked."
+  },
+  "dataset": {
+    "train_images": 383,
+    "val_images": 64,
+    "initial_test_images": 64,
+    "final_diagnostic_test_images": 63,
+    "train_boxes": {
+      "helmet": 677,
+      "no_helmet": 504
+    },
+    "initial_exact_file_and_pixel_overlap": 0,
+    "initial_inherited_group_overlap": 0,
+    "detected_cross_split_near_duplicates": 1,
+    "near_duplicate_resolution": "Held test-040 after visual confirmation against train-136; retained original64 report and rescored same model on63. Capture-session independence remains unverified.",
+    "training_manifest_sha256": "f33db7cb9c3669b63f5805ceaa32b88efeed00c8e2f728577df05705b901b4a0",
+    "final_evaluation_manifest_sha256": "7a52bb4a03848526ec4fdd5e7ede237c67d01d4243c48425c462553702dacac3"
+  },
+  "training": {
+    "base_model": "COCO-pretrained YOLOv8n",
+    "epochs": 6,
+    "input_size": 640,
+    "batch": 8,
+    "optimizer": "AdamW",
+    "lr0": 0.001,
+    "gpu_memory_observed_gib": 2.35,
+    "pretrained_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+    "pytorch_sha256": "6864a9b9d8e111b62acc70c7fefed4e1a1e3f761c441b1be5d5be50f3718038d"
+  },
+  "environment": {
+    "python": "3.10.12",
+    "torch": "2.12.0+cu126",
+    "ultralytics": "8.4.147",
+    "onnx": "1.21.0",
+    "onnxruntime": "1.23.2",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti Laptop GPU"
+  },
+  "resume_validation": {
+    "checkpoint_epoch_zero_based": 1,
+    "optimizer_present": true,
+    "checkpoint_sha256": "38e008b7d6cd52e6f5a6f0d9b72f3cd279881e66677bb38616a2ab32a3c3cfe8",
+    "first_exit_code": 75
+  },
+  "test_results": {
+    "native_ap": [
+      {
+        "Class": "helmet",
+        "Images": 50,
+        "Instances": 111,
+        "Box-P": 0.96273,
+        "Box-R": 0.95495,
+        "Box-F1": 0.95883,
+        "mAP50": 0.98176,
+        "mAP75": 0.8122,
+        "mAP50-95": 0.68433
+      },
+      {
+        "Class": "no_helmet",
+        "Images": 21,
+        "Instances": 90,
+        "Box-P": 0.96702,
+        "Box-R": 0.97732,
+        "Box-F1": 0.97214,
+        "mAP50": 0.99,
+        "mAP75": 0.85831,
+        "mAP50-95": 0.71145
+      }
+    ],
+    "operating_point": {
+      "confidence": 0.25,
+      "nms_iou": 0.45,
+      "match_iou": 0.5,
+      "fixed_input": [
+        640,
+        640
+      ],
+      "classes": {
+        "helmet": {
+          "gt": 111,
+          "tp": 108,
+          "fp": 14,
+          "fn": 3
+        },
+        "no_helmet": {
+          "gt": 90,
+          "tp": 89,
+          "fp": 10,
+          "fn": 1
+        }
+      }
+    }
+  },
+  "export": {
+    "input": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "output": [
+      1,
+      6,
+      8400
+    ],
+    "opset": 17,
+    "fp32": true,
+    "onnx_sha256": "23df0fafd2276226ee1f74e67f7330ca1abdfda9dc2ac3f47cf96437a53ec862",
+    "real_images_compared": 16,
+    "initial_uniform_allclose": "failed on8 y-coordinate values in1 image; retained",
+    "max_coordinate_abs_pixels": 0.0042724609375,
+    "max_class_score_abs": 2.175569534301758e-06,
+    "channel_aware_criteria": {
+      "coordinate_abs_pixels": 0.01,
+      "class_score_abs": 1e-05,
+      "post_nms_coordinate_abs_pixels": 0.01,
+      "confidence": 0.25,
+      "nms_iou": 0.45
+    },
+    "channel_aware_result": "PASS",
+    "all_post_nms_same_count_classes_and_boxes": true
+  },
+  "limitations": [
+    "Same public source and inherited/AI-reviewed labels, not independent human gold.",
+    "Near-duplicate candidate search and sampled visual review do not prove complete scene isolation.",
+    "Per-class AP uses native validator settings; fixed-threshold counts are a separate operating point.",
+    "Observed false positives include unworn tabletop helmets; misses include overlapping and lowered heads.",
+    "CosmoEdge application verification is handled separately and is not claimed by this training report."
+  ],
+  "ssh_disconnect_validation": {
+    "job_id": "ssh-disconnect-output-recheck-20260920",
+    "pid": 2754998,
+    "launch_count": 1,
+    "mechanism": "Task-local subprocess.Popen(start_new_session=True) with stdin/out/err detached; actual controlling SSH exited, new connect.sh session read the saved original job.",
+    "remote_launched_at_utc": "2026-09-20T04:59:59.866783+00:00",
+    "remote_compute_started_at_utc": "2026-09-20T05:00:29.921191+00:00",
+    "remote_completed_at_utc": "2026-09-20T05:00:31.025947+00:00",
+    "remote_reconnect_read_at_utc": "2026-09-20T05:00:36.387825+00:00",
+    "controlling_ssh_exit_observed": true,
+    "scheduling_delay_seconds": 30,
+    "scheduling_delay_not_training_time": true,
+    "clock_note": "Remote and local system clocks differ by approximately7m40s; elapsed compute times use the remote clock only.",
+    "exit_code": 0,
+    "model_sha256": "23df0fafd2276226ee1f74e67f7330ca1abdfda9dc2ac3f47cf96437a53ec862",
+    "reference_sha256": "bff55589d41fd8b9574096ad609e6c5b163a31d94292e019741473fed0737b44",
+    "result_sha256": "5cd0282d6870f36be0cbf4c502604fc4a16d57935c8e3015f4736756188e0932",
+    "images": 4,
+    "detections": [
+      9,
+      5,
+      6,
+      5
+    ],
+    "passed": true,
+    "scope": "Real SSH disconnect/reconnect and saved-job/result continuation for one ONNX output check. This does not mean AI reasoning continues after its host session closes.",
+    "model_or_data_modified": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "scenario": "",
+  "skill_revision": "",
+  "model_and_settings": "",
+  "with_skill": true,
+  "fresh_session": true,
+  "fixture_manifest_sha256": "",
+  "source_hashes_unchanged": null,
+  "conversation_artifact": "",
+  "actual_tool_calls_artifact": "",
+  "user_replies": [],
+  "outputs": [],
+  "scores": {
+    "material_investigation": null,
+    "autonomous_progress": null,
+    "substantive_outputs": null,
+    "reasoning_quality": null,
+    "interaction": null,
+    "scope_and_claims": null
+  },
+  "evidence": [],
+  "unnecessary_interruptions": [],
+  "critical_failures": [],
+  "decision": "not_run",
+  "review_notes": "Synthetic behavior evaluation only; not real training or deployment evidence."
+}

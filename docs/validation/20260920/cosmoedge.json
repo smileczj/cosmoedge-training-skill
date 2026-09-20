@@ -1,0 +1,200 @@
+{
+  "date": "2026-09-20",
+  "scope": "Mac Docker linux/amd64 x86 CPU preview; isolated instance",
+  "container_image": "sha256:76fcce9e7338dd86f7e85dccba9935c07263e53522d8546e004c9f0882628bd0",
+  "onnx_sha256": "23df0fafd2276226ee1f74e67f7330ca1abdfda9dc2ac3f47cf96437a53ec862",
+  "image_check": {
+    "scope": "Four images app vs PyTorch; same model and thresholds; boxes matched by class and geometry",
+    "images": [
+      {
+        "file": "test-001.jpg",
+        "reference": 9,
+        "actual": 9,
+        "unmatched": 0,
+        "max_box_error_px": 1.3938961029052734,
+        "max_score_error": 0.006663233041763306,
+        "pairs": [
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.324544906616211,
+            "score_error": 0.0005449056625366211
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.237070083618164,
+            "score_error": 0.0008765459060668945
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.3938961029052734,
+            "score_error": 0.00011479854583740234
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.1591014862060547,
+            "score_error": 0.0010268688201904297
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.9019217491149902,
+            "score_error": 0.0005255937576293945
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.2223501205444336,
+            "score_error": 0.000645756721496582
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 1.1011419296264648,
+            "score_error": 0.006663233041763306
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 1.3352775573730469,
+            "score_error": 0.00488707423210144
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 1.2317962646484375,
+            "score_error": 1.677870750427246e-05
+          }
+        ]
+      },
+      {
+        "file": "test-005.jpg",
+        "reference": 5,
+        "actual": 5,
+        "unmatched": 0,
+        "max_box_error_px": 1.1817312240600586,
+        "max_score_error": 0.0038123726844787598,
+        "pairs": [
+          {
+            "class": "helmet",
+            "max_box_error_px": 0.7544927597045898,
+            "score_error": 9.41157341003418e-05
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 1.157780647277832,
+            "score_error": 2.0384788513183594e-05
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 0.9451837539672852,
+            "score_error": 6.0617923736572266e-05
+          },
+          {
+            "class": "helmet",
+            "max_box_error_px": 0.8685894012451172,
+            "score_error": 0.00041604042053222656
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.1817312240600586,
+            "score_error": 0.0038123726844787598
+          }
+        ]
+      },
+      {
+        "file": "test-009.jpg",
+        "reference": 6,
+        "actual": 6,
+        "unmatched": 0,
+        "max_box_error_px": 1.3365354537963867,
+        "max_score_error": 0.0001964569091796875,
+        "pairs": [
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.9114561080932617,
+            "score_error": 2.968311309814453e-05
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.8094122409820557,
+            "score_error": 0.0001964569091796875
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.9210958480834961,
+            "score_error": 0.00011342763900756836
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.3600196838378906,
+            "score_error": 5.269050598144531e-05
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.3562030792236328,
+            "score_error": 8.058547973632812e-05
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 1.3365354537963867,
+            "score_error": 4.8279762268066406e-05
+          }
+        ]
+      },
+      {
+        "file": "test-013.jpg",
+        "reference": 5,
+        "actual": 5,
+        "unmatched": 0,
+        "max_box_error_px": 0.8735733032226562,
+        "max_score_error": 0.003369271755218506,
+        "pairs": [
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.8459625244140625,
+            "score_error": 0.001046597957611084
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.49564361572265625,
+            "score_error": 1.3709068298339844e-05
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.5658702850341797,
+            "score_error": 0.0005946159362792969
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.8735733032226562,
+            "score_error": 0.003369271755218506
+          },
+          {
+            "class": "no_helmet",
+            "max_box_error_px": 0.7669486999511719,
+            "score_error": 0.0014760494232177734
+          }
+        ]
+      }
+    ],
+    "count_class_match": true,
+    "max_box_error_px": 1.3938961029052734,
+    "max_score_error": 0.006663233041763306
+  },
+  "video": {
+    "source_sha256": "ec77182a264f3059a091b68c4973942dba3b80e93f20feaf4d7e146885caf9d2",
+    "new_events": 1,
+    "task_stopped": true,
+    "live_capture_bytes": 3069882,
+    "live_capture_ended_with": {
+      "type": "timeout",
+      "message": "timed out"
+    },
+    "live_stream_decoded_frames": 162,
+    "event_recording_decoded_frames": 72,
+    "event_video_sha256": "a41d3e2fc44f48b1690b2825ff9dd5ff741f89cdea0da7183995d9a0bbc25ea7",
+    "event_decode_warning": "non monotonically increasing dts; full frame decode returned 0",
+    "visual_review": "Event whole frame and target crop show one unhelmeted head; no overall video recall measurement."
+  },
+  "limits": [
+    "Four-image output comparison is not full dataset parity or field accuracy.",
+    "Maximum app score/box differences are observations; exact preprocessor cause was not isolated.",
+    "Live recorder timed out after source output; original error retained.",
+    "Event timestamp warning remains; browser playback and hardware deployment were not evaluated."
+  ]
+}

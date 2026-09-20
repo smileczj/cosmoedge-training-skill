@@ -1,0 +1,28 @@
+name: Skill checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Check evaluation fixtures
+        run: python -m unittest discover -s evals/tests -v
+      - name: Validate complete Skill
+        run: python tools/package_skill.py --check
+      - name: Build installation archive
+        run: python tools/package_skill.py

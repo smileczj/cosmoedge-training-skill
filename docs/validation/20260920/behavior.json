@@ -1,0 +1,177 @@
+{
+  "date": "2026-09-20",
+  "materials": "Program-generated synthetic fixtures; no real model accuracy",
+  "session_conditions": "Independent fresh Codex agent contexts with task, materials and optional Skill; no evaluator rubric; questions answered by maintainer as simulated user. Exact host model version/settings were not separately captured.",
+  "review": "Maintainer checked actual files, expected calculations and source hashes. No automated universal behavior score.",
+  "runs": [
+    {
+      "scenario": "existing-labels",
+      "decision": "通过",
+      "finding": "检查12张已有标签并利用现有工程，完成环境调查与后续方案，没有重复预标注或启动训练。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "51490f75134a44a0f05e04f7ecf3696220af2bd78ad63ec03fd36e73bbcca4a0",
+      "reviewed_outputs": [
+        {
+          "path": "work/audit.json",
+          "sha256": "f7305d40544d8870a27951844c5e35eaabcedea8ee7abdbc0b087eadfd7b6f9a"
+        },
+        {
+          "path": "work/final-check.json",
+          "sha256": "74fd5c314baf4f894b0a455c467132caa55ada3d252f6ff4ece2695e29ec9cf1"
+        },
+        {
+          "path": "work/任务记录.md",
+          "sha256": "19d8c2dcf4495464c629cc1c3d0fb7d2f467a992e9db24add582f5a7468426a4"
+        }
+      ],
+      "critical_failures": [],
+      "skill_md_sha256": "399ab0a5029d14f3eea616aaadbd98f7fc87bac1b63367a40c2b7221d028df65"
+    },
+    {
+      "scenario": "coverage-gap",
+      "decision": "通过",
+      "finding": "80张/80框两类平衡，但新增60个目标均为60x60，微小目标未增加；进一步查出16张验证图主体与训练图重复。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "0e0438b2bdca9b590bc9641018b94ec317d054e799feafdcb2afc9a6dca92389",
+      "reviewed_outputs": [
+        {
+          "path": "work/analysis.json",
+          "sha256": "fc091b8f0c6fc75afb61eb76ceba1225b77b305c40db94e8932ca1f345ecf173"
+        },
+        {
+          "path": "work/report.md",
+          "sha256": "9ddeb782acafec6f8f965ddb1cb58bfbb50f0b76c4d22a4b51bf610e220a419e"
+        },
+        {
+          "path": "work/analyze.py",
+          "sha256": "2035b4f8945794812d784bf69e40ac6fe499b868431af7bf0e3028d9690f02b9"
+        }
+      ],
+      "critical_failures": [],
+      "skill_md_sha256": "399ab0a5029d14f3eea616aaadbd98f7fc87bac1b63367a40c2b7221d028df65"
+    },
+    {
+      "scenario": "metric-regression",
+      "decision": "通过",
+      "finding": "复现旧A/新B报告并完成2x2交叉重算；共同B下旧2/6、新3/6，保留逐图得失，不推断训练根因。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "47f9fc6e278c3bf3cc0565ac6573ebbaa0de3f54d11f4f2e1b1e7889dac023c7",
+      "reviewed_outputs": [
+        {
+          "path": "work/comparison.json",
+          "sha256": "dbb35fdff9cb63e1edc3858e788c3d128953faa0b4cfdb11e2884fb629100673"
+        },
+        {
+          "path": "work/report.md",
+          "sha256": "1f813c951c79b1500b1c94f5f8df9599f5ef01a307755be3b93c351f55df9a1c"
+        },
+        {
+          "path": "work/scorer-checks.json",
+          "sha256": "56f3bcbca73ba3e5b33966f50914777c4cc2942891a2abe1b0d67fe42c77e9e4"
+        }
+      ],
+      "critical_failures": [],
+      "skill_md_sha256": "399ab0a5029d14f3eea616aaadbd98f7fc87bac1b63367a40c2b7221d028df65"
+    },
+    {
+      "scenario": "resume-rule-change",
+      "decision": "通过",
+      "finding": "核对同一模拟作业已完成，修订train/val两张布帽类号，含糊样本按模拟用户答复留出；没有重启训练。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "356e3c9da47128d55de3e6b9c8532c8c3ef5e30caa8c01eb4e2b83ad7b6877a1",
+      "reviewed_outputs": [
+        {
+          "path": "work/validation.json",
+          "sha256": "2acbf9f7aa3c40f83c1eeaa6d500b94f8b7f0ac5ed6aab4011a349a8587a90ac"
+        },
+        {
+          "path": "work/task-note.md",
+          "sha256": "6952f8e60b40a95ec48fa977f8591c34bc4db85f095e52c9c360c4762e724281"
+        },
+        {
+          "path": "work/rules-v2.md",
+          "sha256": "175a1ed83c3076163b076b7699853191e9fe37e944b2602e14ba04f0fa55da50"
+        }
+      ],
+      "critical_failures": [],
+      "skill_md_sha256": "399ab0a5029d14f3eea616aaadbd98f7fc87bac1b63367a40c2b7221d028df65"
+    },
+    {
+      "scenario": "tool-adaptation",
+      "decision": "通过",
+      "finding": "复现旧CLI参数失败，查看帮助与代码修复调用，检查3图3框；候选保留待复核状态。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "63fff0f4dc2209be39f3a53d79a22c569d288aa2a233c0cdea675e1bdf4f62a5",
+      "reviewed_outputs": [
+        {
+          "path": "work/validation.json",
+          "sha256": "09050c75b067225432c0942b3702cd74abdd7b1ea0c9767e54c1c462ae323a42"
+        },
+        {
+          "path": "work/task-note.md",
+          "sha256": "e4f09fdcb89c73f9b44e1e82c1df10df421e0704cf08da9b8ee7d66d8bd0634c"
+        },
+        {
+          "path": "work/run_pipeline.py",
+          "sha256": "a881d2a578fa2dd7b3a5faebc2eafe78dabdae7387157d91c9f119c21574ad2e"
+        }
+      ],
+      "critical_failures": [],
+      "skill_md_sha256": "399ab0a5029d14f3eea616aaadbd98f7fc87bac1b63367a40c2b7221d028df65"
+    },
+    {
+      "scenario": "metric-regression",
+      "decision": "通过",
+      "fresh_session": true,
+      "with_skill": false,
+      "finding": "无Skill对照也完成同口径交叉重算、图片检查与根因边界说明；不能由此单例证明Skill提高成功率。",
+      "fixture_manifest_sha256": "47f9fc6e278c3bf3cc0565ac6573ebbaa0de3f54d11f4f2e1b1e7889dac023c7",
+      "reviewed_outputs": [
+        {
+          "path": "work/report.md",
+          "sha256": "cb91489ac62d96110fd70a1f5e63001d5d7ad54122638c10209a8b69b2083c11"
+        }
+      ],
+      "critical_failures": [],
+      "raw_materials_hash_unchanged": true
+    },
+    {
+      "scenario": "annotation-start",
+      "decision": "通过",
+      "finding": "查看8图，清洗保存候选并补标漏掉的裸头，得到7份标签7框；用品规格含糊的一图询问后留出。没有执行模型推理。",
+      "fresh_session": true,
+      "with_skill": true,
+      "raw_materials_hash_unchanged": true,
+      "fixture_manifest_sha256": "6ad3a4b09cfce45ef6466ee90c381a31a82c4d3fe3d146c68c0525f777472af9",
+      "skill_md_sha256": "db668e6c93de8074f209d5da186294a4108bea4a0863e84325195b30001a8632",
+      "reviewed_outputs": [
+        {
+          "path": "work/validation.json",
+          "sha256": "faad98d211ae9ab9777f5025174a5fccf7edb151d3d66efcd17fa8e7f6618dec"
+        },
+        {
+          "path": "work/annotation-policy.md",
+          "sha256": "8fc924b4d472349cbbe1971adec97759124037a3271ef0fc491ec89d2e92a489"
+        },
+        {
+          "path": "work/review-audit.json",
+          "sha256": "d619903715de10c603a8cf12c16f112e47734d5b212c2ef079bbcdfbe5fdf097"
+        }
+      ],
+      "critical_failures": [],
+      "preview_note": "Local URL blocked by browser policy; HTML structure/resources checked, no browser-rendering claim."
+    }
+  ],
+  "version_note": "First five Skill runs preceded the result-report template/link and in-directory LICENSE addition; existing behavior guidance was unchanged. Annotation-start uses the final Skill text. Release package separately validated.",
+  "final_skill_md_sha256": "db668e6c93de8074f209d5da186294a4108bea4a0863e84325195b30001a8632"
+}
