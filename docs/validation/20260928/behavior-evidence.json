@@ -1,0 +1,905 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "method": "Independent installed-skill agents; maintainer rechecked actual call journals, saved configurations, payload identity and original material hashes. Local absolute paths replaced with <scenario>.",
+  "model_and_settings": "Inherited Codex task settings without overrides; exact model ID not collected.",
+  "runs": [
+    {
+      "version": "revised",
+      "scenario": "model-add-config",
+      "fresh_session": true,
+      "originals_unchanged": true,
+      "fixture_manifest_sha256": "0bc7cc9354282b59ef1edf3a4afba0372f54960dc9722dff2c6c7d0709b5d8d6",
+      "decision": "PASS_SYNTHETIC_ONLY",
+      "actual_mock_calls": [
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bcn.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bcn.bmodel",
+            "template": "<scenario>/work/installed-skill-run/current-training-template.json",
+            "labels": "<scenario>/work/installed-skill-run/labels.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bnc.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bnc.bmodel",
+            "template": "<scenario>/work/installed-skill-run/current-training-template.json",
+            "labels": "<scenario>/work/installed-skill-run/labels.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "list",
+          "arguments": {},
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        }
+      ],
+      "saved_entries": [
+        {
+          "id": "model-001",
+          "operation": "add",
+          "config": {
+            "synthetic": true,
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            },
+            "postprocess": {
+              "nms_in_model": false,
+              "nms_iou": 0.45,
+              "confidence": 0.25
+            },
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                640,
+                640
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                7,
+                8400
+              ],
+              "dtype": "float32",
+              "layout": "BCN"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 3,
+              "nms_in_model": false
+            },
+            "source_model_sha256": "8237db52fa12eba0a6caf7ded455d0a53fea4c3f800fd7cf6b8c629726eda0b7",
+            "labels": [
+              {
+                "id": 0,
+                "name": "car"
+              },
+              {
+                "id": 1,
+                "name": "bus"
+              },
+              {
+                "id": 2,
+                "name": "truck"
+              }
+            ]
+          },
+          "config_sha256": "d05b2c708119dde4810de9f9beab80c0ab2a182a70f19a755e78f4d250c11b75",
+          "stored_sha256": "c358e7c039a025262bdc5c78270aa7af55cd7ded9abd411f05983d878bcae92a",
+          "payload_sha256": "8237db52fa12eba0a6caf7ded455d0a53fea4c3f800fd7cf6b8c629726eda0b7",
+          "readback_and_synthetic_load_observed": true
+        },
+        {
+          "id": "model-002",
+          "operation": "add",
+          "config": {
+            "synthetic": true,
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            },
+            "postprocess": {
+              "nms_in_model": false,
+              "nms_iou": 0.45,
+              "confidence": 0.25
+            },
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                640,
+                640
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                8400,
+                7
+              ],
+              "dtype": "float32",
+              "layout": "BNC"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 3,
+              "nms_in_model": false
+            },
+            "source_model_sha256": "8e4f7f1871f7c5d9b52fd86c7307343fd70fba21a1236a10f2babdbfd2a71e45",
+            "labels": [
+              {
+                "id": 0,
+                "name": "car"
+              },
+              {
+                "id": 1,
+                "name": "bus"
+              },
+              {
+                "id": 2,
+                "name": "truck"
+              }
+            ]
+          },
+          "config_sha256": "abde57faf56e045c57947b8933a39d8d0bd286ea89cb578a01568b28ad29ca38",
+          "stored_sha256": "2c4d132cb1a7351615f9dc750780d24e77f14561e589790b32ec1833056a93c1",
+          "payload_sha256": "8e4f7f1871f7c5d9b52fd86c7307343fd70fba21a1236a10f2babdbfd2a71e45",
+          "readback_and_synthetic_load_observed": true
+        }
+      ]
+    },
+    {
+      "version": "baseline-e907ba0",
+      "scenario": "model-add-config",
+      "fresh_session": true,
+      "originals_unchanged": true,
+      "fixture_manifest_sha256": "0bc7cc9354282b59ef1edf3a4afba0372f54960dc9722dff2c6c7d0709b5d8d6",
+      "decision": "PASS_SYNTHETIC_ONLY",
+      "actual_mock_calls": [
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "materials/models/vehicle-bcn.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "materials/models/vehicle-bnc.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bcn.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bcn.bmodel",
+            "template": "<scenario>/work/vehicle-bcn-config.json",
+            "labels": "<scenario>/work/labels.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bnc.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle-bnc.bmodel",
+            "template": "<scenario>/work/vehicle-bnc-config.json",
+            "labels": "<scenario>/work/labels.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        }
+      ],
+      "saved_entries": [
+        {
+          "id": "model-001",
+          "operation": "add",
+          "config": {
+            "synthetic": true,
+            "source_model_sha256": "8237db52fa12eba0a6caf7ded455d0a53fea4c3f800fd7cf6b8c629726eda0b7",
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                640,
+                640
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                7,
+                8400
+              ],
+              "dtype": "float32",
+              "layout": "BCN"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 3,
+              "nms_in_model": false
+            },
+            "labels": [
+              {
+                "id": 0,
+                "name": "car"
+              },
+              {
+                "id": 1,
+                "name": "bus"
+              },
+              {
+                "id": 2,
+                "name": "truck"
+              }
+            ],
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            },
+            "postprocess": {
+              "nms_in_model": false,
+              "nms_iou": 0.45,
+              "confidence": 0.25
+            }
+          },
+          "config_sha256": "5a8f215a18ad683ad074f37e049da75e140395bb229c44d0b00dc470b99267d8",
+          "stored_sha256": "c358e7c039a025262bdc5c78270aa7af55cd7ded9abd411f05983d878bcae92a",
+          "payload_sha256": "8237db52fa12eba0a6caf7ded455d0a53fea4c3f800fd7cf6b8c629726eda0b7",
+          "readback_and_synthetic_load_observed": true
+        },
+        {
+          "id": "model-002",
+          "operation": "add",
+          "config": {
+            "synthetic": true,
+            "source_model_sha256": "8e4f7f1871f7c5d9b52fd86c7307343fd70fba21a1236a10f2babdbfd2a71e45",
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                640,
+                640
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                8400,
+                7
+              ],
+              "dtype": "float32",
+              "layout": "BNC"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 3,
+              "nms_in_model": false
+            },
+            "labels": [
+              {
+                "id": 0,
+                "name": "car"
+              },
+              {
+                "id": 1,
+                "name": "bus"
+              },
+              {
+                "id": 2,
+                "name": "truck"
+              }
+            ],
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            },
+            "postprocess": {
+              "nms_in_model": false,
+              "nms_iou": 0.45,
+              "confidence": 0.25
+            }
+          },
+          "config_sha256": "a613abeb35f537a3fc931351ef97af6b5d843b0a06bfb90a00c146e6c44271c6",
+          "stored_sha256": "2c4d132cb1a7351615f9dc750780d24e77f14561e589790b32ec1833056a93c1",
+          "payload_sha256": "8e4f7f1871f7c5d9b52fd86c7307343fd70fba21a1236a10f2babdbfd2a71e45",
+          "readback_and_synthetic_load_observed": true
+        }
+      ]
+    },
+    {
+      "version": "revised",
+      "scenario": "model-package-import",
+      "fresh_session": true,
+      "originals_unchanged": true,
+      "fixture_manifest_sha256": "a111770f0a2f6085c68615d0b6a606525a78af5beedf9dcea02cd1cc1a40906d",
+      "decision": "PASS_SYNTHETIC_ONLY",
+      "actual_mock_calls": [
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "materials/models/road-320.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "materials/models/road-320.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "import",
+          "arguments": {
+            "package": "materials/road-five-320.zip"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "list",
+          "arguments": {},
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        }
+      ],
+      "saved_entries": [
+        {
+          "id": "model-001",
+          "operation": "import",
+          "config": {
+            "synthetic": true,
+            "source_model_sha256": "f0354fa7597e225948705557506d7df231c3c0c17e6e341d8119476d66f4962f",
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                320,
+                320
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                2100,
+                9
+              ],
+              "dtype": "float32",
+              "layout": "BNC"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 5,
+              "nms_in_model": false
+            },
+            "labels": [
+              {
+                "id": 0,
+                "name": "person"
+              },
+              {
+                "id": 1,
+                "name": "bicycle"
+              },
+              {
+                "id": 2,
+                "name": "car"
+              },
+              {
+                "id": 3,
+                "name": "motorcycle"
+              },
+              {
+                "id": 4,
+                "name": "bus"
+              }
+            ],
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            }
+          },
+          "config_sha256": "22923f29afef1b57fd88bfb3ce9fe60b79e1ee473a1801462bb948b29e380a02",
+          "stored_sha256": "047008a6a82c786ee4facef7622e675da23e640cee35728bf81630c00d20f759",
+          "payload_sha256": "f0354fa7597e225948705557506d7df231c3c0c17e6e341d8119476d66f4962f",
+          "readback_and_synthetic_load_observed": true
+        }
+      ]
+    },
+    {
+      "version": "revised",
+      "scenario": "model-format-triage",
+      "fresh_session": true,
+      "originals_unchanged": true,
+      "fixture_manifest_sha256": "d915709468fa8a42ae6fb62e79526a56e3b10ca6eba6179affe5b7cb2036ef21",
+      "decision": "PASS_SYNTHETIC_ONLY",
+      "actual_mock_calls": [
+        {
+          "command": "inspect-model",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle.bmodel"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": null,
+            "entry_dir": "<scenario>/materials/saved-entries/automatic-failed"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": null,
+            "entry_dir": "<scenario>/materials/saved-entries/manual-success"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": null,
+            "entry_dir": "<scenario>/materials/saved-entries/automatic-failed"
+          },
+          "exit_code": 1,
+          "stage": "container",
+          "actual_device_load": false
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": null,
+            "entry_dir": "<scenario>/materials/saved-entries/manual-success"
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": null,
+            "entry_dir": "<scenario>/work/controls/config-only"
+          },
+          "exit_code": 1,
+          "stage": "container",
+          "actual_device_load": false
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle.bmodel",
+            "template": "<scenario>/materials/saved-entries/automatic-failed/config.json",
+            "labels": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "update",
+          "arguments": {
+            "id": "model-001",
+            "config": "<scenario>/materials/saved-entries/automatic-failed/config.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-001",
+            "entry_dir": null
+          },
+          "exit_code": 1,
+          "stage": "config",
+          "actual_device_load": false
+        },
+        {
+          "command": "add",
+          "arguments": {
+            "model": "<scenario>/materials/models/vehicle.bmodel",
+            "template": "<scenario>/work/vehicle-config.json",
+            "labels": "<scenario>/work/vehicle-labels.json"
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "load",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": "loaded",
+          "actual_device_load": false
+        },
+        {
+          "command": "read",
+          "arguments": {
+            "id": "model-002",
+            "entry_dir": null
+          },
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        },
+        {
+          "command": "list",
+          "arguments": {},
+          "exit_code": 0,
+          "stage": null,
+          "actual_device_load": null
+        }
+      ],
+      "saved_entries": [
+        {
+          "id": "model-002",
+          "operation": "add",
+          "config": {
+            "synthetic": true,
+            "source_model_sha256": "b157b9eec28437666a7be38fcd15fdb5bb44bf21361933b59116cf0706233277",
+            "chip": "BM1688",
+            "input": {
+              "name": "images",
+              "shape": [
+                1,
+                3,
+                640,
+                640
+              ],
+              "dtype": "float32",
+              "layout": "NCHW"
+            },
+            "output": {
+              "name": "output0",
+              "shape": [
+                1,
+                7,
+                8400
+              ],
+              "dtype": "float32",
+              "layout": "BCN"
+            },
+            "detector": {
+              "family": "yolov8",
+              "class_count": 3,
+              "nms_in_model": false
+            },
+            "labels": [
+              {
+                "id": 0,
+                "name": "car"
+              },
+              {
+                "id": 1,
+                "name": "bus"
+              },
+              {
+                "id": 2,
+                "name": "truck"
+              }
+            ],
+            "preprocess": {
+              "color": "RGB",
+              "scale": 0.00392156862745098,
+              "mean": [
+                0,
+                0,
+                0
+              ],
+              "resize": "letterbox",
+              "pad_value": 114
+            },
+            "postprocess": {
+              "nms_in_model": false,
+              "nms_iou": 0.45,
+              "confidence": 0.25
+            }
+          },
+          "config_sha256": "0d137771a638a3014502e0fee97017f411cf1aa7c1b4150a767534fbcc4877b9",
+          "stored_sha256": "ee4d27d1c243f0f21b29e1fd974ee3443ca6f95d850d4d7cda01da1aac09f03a",
+          "payload_sha256": "b157b9eec28437666a7be38fcd15fdb5bb44bf21361933b59116cf0706233277",
+          "readback_and_synthetic_load_observed": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Old and revised skill both passed the add scenario; no success-rate improvement established.",
+    "Mock service does not perform real CENN or BMRT loading, image inference or device acceptance.",
+    "Full-package scenario does not verify application confidence/NMS thresholds."
+  ]
+}

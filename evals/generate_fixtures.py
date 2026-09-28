@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import struct
 import textwrap
+import zipfile
 import zlib
 
 
@@ -20,6 +21,7 @@ WIDTH, HEIGHT = 320, 240
 SCENARIOS = (
     "existing-labels", "coverage-gap", "metric-regression",
     "resume-rule-change", "tool-adaptation", "annotation-start",
+    "model-add-config", "model-package-import", "model-format-triage",
 )
 NOTICE = """# Synthetic evaluation materials
 
@@ -486,7 +488,190 @@ def annotation_start(root):
     ''')
 
 
-GENERATORS = dict(zip(SCENARIOS, (existing_labels, coverage_gap, metric_regression, resume_rule_change, tool_adaptation, annotation_start)))
+SYNTHETIC_WRAPPER = b"SYNTHETIC-CENN-NOT-A-REAL-MODEL\n"
+
+
+def model_metadata(classes, size, layout):
+    anchors = sum((size // stride) ** 2 for stride in (8, 16, 32))
+    output_shape = [1, classes + 4, anchors] if layout == "BCN" else [1, anchors, classes + 4]
+    return {
+        "chip": "BM1688",
+        "input": {"name": "images", "shape": [1, 3, size, size], "dtype": "float32", "layout": "NCHW"},
+        "output": {"name": "output0", "shape": output_shape, "dtype": "float32", "layout": layout},
+        "detector": {"family": "yolov8", "class_count": classes, "nms_in_model": False},
+    }
+
+
+def synthetic_model(root, filename, classes, size, layout):
+    raw = ("SYNTHETIC-BMODEL-NOT-EXECUTABLE\n" + filename + "\n").encode()
+    path = root / "materials" / filename
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(raw)
+    return raw, model_metadata(classes, size, layout)
+
+
+def synthetic_config(raw, info, names):
+    return {"synthetic": True, "source_model_sha256": hashlib.sha256(raw).hexdigest(), **info,
+            "labels": [{"id": index, "name": name} for index, name in enumerate(names)],
+            "preprocess": {"color": "RGB", "scale": 1 / 255, "mean": [0, 0, 0],
+                           "resize": "letterbox", "pad_value": 114}}
+
+
+def model_service_materials(root, models):
+    write_json(root, "materials/service-catalog.json", {
+        "schema": 1, "synthetic": True,
+        "models": {hashlib.sha256(raw).hexdigest(): info for raw, info in models},
+    })
+    runtime = Path(__file__).resolve().parent / "support/mock_model_service.py"
+    write(root, "materials/tools/mock_model_service.py", runtime.read_text(encoding="utf-8"))
+    write(root, "materials/tools/README.md", """
+        # 本地模拟模型服务
+
+        `python3 materials/tools/mock_model_service.py --help` 查看操作和参数；各子命令也有 --help。
+        inspect-model 可读取模型信息；add 接收原始模拟 bmodel；import 接收完整模拟 ZIP 包；
+        read 回读条目；update 更新配置；list 列出当前条目；load 模拟加载阶段检查。
+        状态和调用日志默认保存于 work/service-state/，可用 --state-dir 指定 work/ 下的新目录。
+        read/load 也能用 --entry-dir 读取已有本地条目。所有入口均为 Python 标准库程序。
+
+        添加时由模型信息生成张量、芯片和检测器字段。类别名称来自调用者提供的 JSON 标签表；
+        未提供时保留模板标签，若没有模板标签则生成占位名。其他配置从模板保留。
+        导入时保存包内配置。add/import 的响应只表示条目已保存；load 不会运行真实推理。
+        service-catalog.json 是按原始内容摘要索引的模拟元数据，不含由模型推断的业务类别名称。
+
+        本工具只实现测试材料的本地替身接口，不是 CosmoEdge 的真实 API 或安装包。
+        示例扩展名为 .bmodel/.nn，但内容都有 SYNTHETIC 标记，不能交给 BMRT 或真实设备。
+        不得把本工具写入条目、模拟加载成功或命令退出 0 当作真实端到端验收。
+    """)
+    write(root, "materials/target-loader-reference.md", """
+        # 合成目标版本能力摘录
+
+        本场景模拟 BM1688 后端，版本标识为 fixture-1。不是在运行真实 CosmoEdge 服务。
+        模拟入口覆盖以下模型管理能力：
+
+        - 单模型添加接受原始 bmodel，读取输入输出信息并生成存储封装。
+        - 完整包导入接收包含配置和已封装主文件的 ZIP 包。
+        - 此检测器解析契约是无内置 NMS 的 YOLOv8；通道数为 4 + 类别数。
+          目标支持 BCN 与 BNC 两种布局，具体张量尺寸由每个候选决定。
+        - 加载先检查存储文件容器，再进入后端加载，之后核对输入输出与解析配置。
+          `model format is not supported` 属于容器检查阶段。
+
+        真实 Sophon 完整包的 model.nn 使用 CENN，不是把 bmodel 扩展名改成 nn。
+        本目录以 SYNTHETIC-CENN-NOT-A-REAL-MODEL 字节前缀模拟容器，
+        该前缀不是实际 CENN 格式。模拟工具不会调用 BMRT，也不能验证工具链兼容性或图片效果。
+    """)
+
+
+def training_record(root, names, size):
+    write_json(root, "materials/training-record.json", {
+        "synthetic": True, "task": "object-detection", "input_size": [size, size],
+        "class_names": names, "preprocess": {"color": "RGB", "scale": 1 / 255,
+        "mean": [0, 0, 0], "resize": "letterbox", "pad_value": 114},
+        "postprocess": {"nms_in_model": False, "nms_iou": 0.45, "confidence": 0.25},
+        "note": "Synthetic training/export record; no real training was executed",
+    })
+
+
+def model_add_config(root):
+    scaffold(root, """
+        车辆检测项目已经准备好两个候选产物，训练类别顺序和导出说明在 materials/。
+        请使用训练辅助 Skill 把两个候选分别接入本地模拟服务，保留可复核的配置、身份及检查结果，
+        说明还有哪些真实验证没完成。这里也有之前保留下来的通用示例配置，可按当前材料决定如何使用。
+        本轮允许运行现有本地模拟工具，在 work/ 写代码、配置和结果。保持原始材料不变，
+        不联网、不安装、不训练、不转换模型、不访问真实设备。所有产物都是合成测试材料，见 SYNTHETIC.md。
+    """)
+    names = ["car", "bus", "truck"]
+    models = [synthetic_model(root, f"models/vehicle-{layout.lower()}.bmodel", 3, 640, layout)
+              for layout in ("BCN", "BNC")]
+    model_service_materials(root, models)
+    training_record(root, names, 640)
+    write_json(root, "materials/example-config.json", synthetic_config(
+        b"SYNTHETIC-UNRELATED-EXAMPLE", model_metadata(80, 640, "BCN"),
+        [f"example_class_{index}" for index in range(80)]))
+    write(root, "materials/export-notes.md", """
+        两个文件属于同一模拟三类车辆项目的独立候选，训练记录中的类别 ID 按数组顺序。
+        两个候选输出的轴排列不同，具体以各自信息为准。没有内置 NMS。
+        example-config.json 来自另一个演示模型，记录的是当时的配置，不是当前候选的测量结果。
+        当前只有模拟原始 bmodel 和元数据，没有实际设备测试或图片预测。
+    """)
+
+
+def model_package_import(root):
+    scaffold(root, """
+        我拿到一个已经整理好的完整检测模型包，模型清单和训练记录都在 materials/。
+        请使用训练辅助 Skill 完成本地模拟接入，检查保存下来的候选信息，并留下复核记录。
+        本轮允许调用现有本地工具和在 work/ 写文件；不联网、不安装、不训练、不重新转换，
+        不访问真实设备。请保留原始材料，准确说明实际完成范围，见 SYNTHETIC.md。
+    """)
+    names = ["person", "bicycle", "car", "motorcycle", "bus"]
+    raw, info = synthetic_model(root, "models/road-320.bmodel", 5, 320, "BNC")
+    model_service_materials(root, [(raw, info)])
+    training_record(root, names, 320)
+    config = synthetic_config(raw, info, names)
+    manifest = {"schema": 1, "synthetic": True, "name": "road-five-320",
+                "source_model_sha256": hashlib.sha256(raw).hexdigest(),
+                "members": ["config.json", "model.nn"]}
+    package_path = root / "materials/road-five-320.zip"
+    with zipfile.ZipFile(package_path, "w", compression=zipfile.ZIP_STORED) as package:
+        for filename, data in {
+            "config.json": json.dumps(config, ensure_ascii=False, indent=2).encode(),
+            "manifest.json": json.dumps(manifest, ensure_ascii=False, indent=2).encode(),
+            "model.nn": SYNTHETIC_WRAPPER + raw,
+        }.items():
+            package.writestr(zipfile.ZipInfo(filename, date_time=(2026, 1, 1, 0, 0, 0)), data)
+    write_json(root, "materials/model-inventory.json", {
+        "synthetic": True, "package": package_path.name, "manifest": manifest,
+        "package_sha256": hashlib.sha256(package_path.read_bytes()).hexdigest(),
+        "raw_model": "models/road-320.bmodel", "metadata": info,
+    })
+
+
+def model_format_triage(root):
+    scaffold(root, """
+        自动接入留下的条目加载失败，日志说 model format is not supported。
+        后来用同一份车辆检测 bmodel 手动上传成功了；两个条目、当时配置和记录都已保存。
+        请使用训练辅助 Skill 调查差异，在本地模拟服务里完成范围内的修复验证，保留原件和调查结果。
+        允许运行已有本地工具及在 work/ 写代码和结果；不联网、不安装、不训练、
+        不重新编译或改动原始模型，不访问真实设备。所有记录都是合成材料，见 SYNTHETIC.md。
+    """)
+    names = ["car", "bus", "truck"]
+    raw, info = synthetic_model(root, "models/vehicle.bmodel", 3, 640, "BCN")
+    model_service_materials(root, [(raw, info)])
+    training_record(root, names, 640)
+    good = synthetic_config(raw, info, names)
+    failed = synthetic_config(raw, model_metadata(80, 640, "BCN"),
+                              [f"example_class_{index}" for index in range(80)])
+    for name, config, binary in (("manual-success", good, SYNTHETIC_WRAPPER + raw),
+                                  ("automatic-failed", failed, raw)):
+        base = f"materials/saved-entries/{name}"
+        write_json(root, f"{base}/config.json", config)
+        (root / base / "model.nn").write_bytes(binary)
+        write_json(root, f"{base}/record.json", {
+            "synthetic": True, "entry_id": name, "source_model_sha256": hashlib.sha256(raw).hexdigest(),
+            "operation": "add" if name == "manual-success" else "package-import",
+            "result": "synthetic-load-passed" if name == "manual-success" else "failed",
+        })
+    write(root, "materials/automatic-failed.log", """
+        SYNTHETIC LOG - no actual device or BMRT call
+        entry=automatic-failed file=model.nn stage=container-check
+        error: model format is not supported
+        initialization stopped before backend-load
+    """)
+    write(root, "materials/manual-success.log", """
+        SYNTHETIC LOG - no actual device or inference
+        entry=manual-success operation=add
+        raw model metadata available; stored wrapper created
+        synthetic container/config checks passed
+    """)
+    write_json(root, "materials/task-reference.json", {
+        "synthetic": True, "task_id": "synthetic-vehicle-review", "model_entry": "automatic-failed",
+        "note": "Saved task reference; no task is running",
+    })
+
+
+GENERATORS = dict(zip(SCENARIOS, (
+    existing_labels, coverage_gap, metric_regression, resume_rule_change, tool_adaptation,
+    annotation_start, model_add_config, model_package_import, model_format_triage,
+)))
 
 
 def generate(destination, selected):

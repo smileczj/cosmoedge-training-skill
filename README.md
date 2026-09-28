@@ -85,7 +85,9 @@ python3 -m unittest discover -s evals/tests -v
 python3 tools/package_skill.py --check
 ```
 
-当前预览版的实际结果见 [验证记录](docs/validation/20260920/README.md)，包括独立行为测试、真实训练恢复、ONNX 比对和 CosmoEdge 应用检查。
+最新的模型接入修订与同事复核方法见 [2026-09-28 验证记录](docs/validation/20260928/README.md)。本次修订从默认 `main` 安装；此前发布的预览版附件没有被替换。
+
+此前预览版的实际结果见 [2026-09-20 验证记录](docs/validation/20260920/README.md)，包括独立行为测试、真实训练恢复、ONNX 比对和 CosmoEdge 应用检查。
 
 评估方法见 [evals/README.md](evals/README.md)。欢迎提交复现材料、问题定位、适用条件明确的经验或辅助工具。修改应帮助 AI 更好地完成任务；新增工具需要说明它解决的实际问题。
 
